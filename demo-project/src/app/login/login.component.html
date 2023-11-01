@@ -1,0 +1,48 @@
+
+  <section>
+    <div class="container">
+      <div class="user signinBx">
+        <div class="imgBx"><img src="assets/images/login-page-image.jpeg" alt="" /></div>
+        <div class="formBx">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <h2>Log In</h2>
+                <div class="form-group">
+                    <input type="text" formControlName="username" placeholder="Username" />
+                    <!-- <div *ngIf="loginForm && loginForm.get('username').hasError('required')">
+                      Username is required.
+                    </div> -->
+                  </div>
+                <div class="form-group">
+                  <input type="password" formControlName="password" placeholder="Password" />
+                  <!-- <div *ngIf="loginForm && loginForm.get('password').hasError('required')">
+                    Password is required.
+                  </div> -->
+                </div>
+                <input type="submit" value="Login" />
+                <p class="signup">
+                  Don't have an account ?
+                  <a href="#" routerLink="/signup">Sign Up.</a>
+                </p>
+              </form>
+              
+        </div>
+      </div>
+      <!-- <div class="user signupBx" >
+        <div class="formBx">
+          <form action="" onsubmit="return false;">
+            <h2>Create an account</h2>
+            <input type="text" name="" placeholder="Username" />
+            <input type="email" name="" placeholder="Email Address" />
+            <input type="password" name="" placeholder="Create Password" />
+            <input type="password" name="" placeholder="Confirm Password" />
+            <input type="submit" name="" value="Sign Up" />
+            <p class="signup">
+              Already have an account ?
+              <a href="#" onclick="toggleForm();">Sign in.</a>
+            </p>
+          </form>
+        </div>
+        <div class="imgBx"><img src="assets/images/login-page-image.jpeg" alt="" /></div>
+      </div> -->
+    </div>
+  </section>
