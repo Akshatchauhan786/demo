@@ -1,8 +1,13 @@
-<p-toast></p-toast>
-<section>
+<!-- login.component.html -->
+
+<p-toast position="top-right"></p-toast>
+
+<section class="login-section">
   <div class="container">
     <div class="user signinBx">
-      <div class="imgBx"><img src="assets/images/login-page-image.jpeg" alt="" /></div>
+      <div class="imgBx">
+        <img src="assets/images/login-page-image.jpeg" alt="Login Image" />
+      </div>
       <div class="formBx">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <h2>Log In</h2>
@@ -12,9 +17,15 @@
           <div class="form-group">
             <input type="password" formControlName="password" placeholder="Password" />
           </div>
-          <input type="submit" value="Login" />
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" style=" width: 100%; margin-bottom: 1rem;">Log in</button>
+          </div>
+
+          <button type="button" class="login-with-google-btn">
+            Sign In with Google
+          </button>
           <p class="signup">
-            Don't have an account ?
+            Don't have an account?
             <a routerLink="/signup">Sign Up.</a>
           </p>
         </form>

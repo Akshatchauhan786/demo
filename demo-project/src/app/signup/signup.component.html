@@ -6,35 +6,52 @@
           <h2>Create an account</h2>
           <div class="form-group">
             <input type="text" formControlName="username" placeholder="Username" />
-            <div *ngIf="signupForm.get('username')?.hasError('required') && signupForm.get('username')?.touched" class="error-message">
+            <div *ngIf="signupForm.get('username')?.hasError('required') && signupForm.get('username')?.touched"
+              class="error-message">
               Username is required.
             </div>
           </div>
           <div class="form-group">
             <input type="email" formControlName="email" placeholder="Email Address" />
-            <div *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched" class="error-message">
+            <div *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched"
+              class="error-message">
               Email is required.
             </div>
-            <div *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched" class="error-message">
+            <div *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched"
+              class="error-message">
               Enter a valid email address.
             </div>
           </div>
           <div class="form-group">
             <input type="password" formControlName="password" placeholder="Create Password" />
-            <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched" class="error-message">
+            <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched"
+              class="error-message">
               Password is required.
             </div>
           </div>
           <div class="form-group">
             <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" />
-            <div *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched" class="error-message">
+            <div
+              *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched"
+              class="error-message">
               Confirm Password is required.
             </div>
-            <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched" class="error-message">
+            <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched"
+              class="error-message">
               Passwords do not match.
             </div>
           </div>
-          <input type="submit" value="Sign Up" />
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" style=" width: 100%; margin-bottom: 1rem;">Sign up</button>
+          </div>
+
+          <div class="col-md-12 google">
+            <button type="button" id="google-signin-button" style=" width: 100%;">
+              Sign up with Google
+            </button>
+          </div>
+
+
           <p class="signup">
             Already have an account?
             <a routerLink="/login">Sign in.</a>

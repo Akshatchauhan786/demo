@@ -171,3 +171,6 @@ section .container.active .signinBx .imgBx {
     width: 100%;
   }
 }
+.google #google-signin-button .abcRioButton.abcRioButtonLightBlue {
+  width: 100% !important;
+}
