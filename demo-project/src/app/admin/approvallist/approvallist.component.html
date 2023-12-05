@@ -1,0 +1,23 @@
+<section class="content-header">
+
+  <div class="container-fluid">
+    <div class="row ">
+      <div class="col-sm-6">
+        <h4>Approval List</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <app-commongrid (Approval)="changeStatusApproval($event)" [gridID]="'approvallsit'" [cols]="columns" [values]="approval_list"></app-commongrid>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>

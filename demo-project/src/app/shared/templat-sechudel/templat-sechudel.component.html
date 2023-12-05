@@ -1,0 +1,140 @@
+<section class="content-header" style="height: calc(100vh - 115px);">
+
+  <div class="card card-body container-fluid h-100 overflow-auto" style="padding-bottom: 0px;">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Send Notification</h4>
+      </div>
+    </div>
+    <div class="row box-container">
+
+      <div class="col-lg-2 elevation-1">
+
+        <ul class="nav nav-treeview d-block">
+          <li *ngFor="let item of templatedata" (click)="template_id(item)" class="nav-item">
+            <a class="nav-link d-flex align-items-center">
+
+              <p style="margin-bottom: 0px !important;"> &nbsp;{{item.template_name}}</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-7 elevation-1">
+
+
+        <div class="card" style="height: 100%; ">
+          <div *ngIf="formState==true">
+            <form [formGroup]="resultview">
+
+
+             
+            <div class="card-body">
+              <input formControlName="header" type="text" style="width:100px; text-align: center;"  pInputText/>
+
+            </div>
+
+
+           
+
+            
+
+            <div class="notifiaction">
+
+              <div style=" padding-left: 25px;"><b>Variable</b></div>
+              <div style="  padding-left: 75px; "><b>Value</b></div>
+              <div style=" padding-left:155px;"><b>Fallback</b></div>
+            </div>
+            <div>
+
+                <div formArrayName="addvarable">
+                  <div class="" *ngFor="let variables of resultview.controls.addvarable['controls'] let i=index;"
+                    [formGroupName]="i">
+                    <div class="notifiaction">
+
+                      <div>
+
+                        <input formControlName="variable" type="text" style="width:100px; text-align: center;"
+                          pInputText />
+                      </div>
+                      <div>
+                        <input formControlName="value" placeholder="value" type="text" pInputText />
+
+                      </div>
+
+                      <div>
+                        <input formControlName="Fallback" placeholder="Fallback" type="text" pInputText />
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+      <div class="col-3 ">
+        <div class="templatePreviewBox h-100 w-100">
+
+
+          <div class="col-10 templatePreview">
+
+            <div class="chat-messages" *ngFor="let item of templateinsert">
+              <div class="chat">
+
+                <div class="chat-content clearfix" style="display: flex; justify-content: right;">
+
+
+                  <span class="friend last">
+                    <div class="tempheader">
+
+                      <h3 *ngIf="item.headerType == 'text'">{{templateinsert.controls['text_header'].value}} </h3>
+                    </div>
+
+                    <div *ngIf="item.header_type == 'media'" class="tempimg">
+
+                      <img *ngIf="item.media_type == 'image'" src="{{imageSrc}}"
+                        onerror="this.onerror=null;this.src='assets/img/1115243-200.png'" width="100%" alt="User Image">
+                      <video #video_here *ngIf="item.media_type=='video'" [src]="imageSrc" height="160" width="260"
+                        controls></video> <br />
+
+                    </div>
+
+                    <div class="tempbody">
+                      <p [innerHTML]="item.text_body"></p>
+                    </div>
+
+                    <div class="tempmainfooter">
+                      <p [innerHTML]="item.text_footer"></p>
+                      <span class="time"> 7:30 PM </span>
+
+                    </div>
+                    <div class="tempbtn"></div>
+                  </span>
+
+
+
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</section>

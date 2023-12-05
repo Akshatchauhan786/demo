@@ -1,0 +1,71 @@
+/* .direct-chat-messages{
+  height: 73vh;
+} */
+
+.messageleft{
+  width: 400px;
+}
+.messageright{
+  width: 400px;
+    float: right;
+}
+
+.maindiv{
+  flex-flow: column;
+}
+
+/* .messagesend{
+  background-color: #f4f6f9;
+  border: 1px solid #f4f6f9;
+} */
+.messagesend h3{
+font-size: 14px;
+/* font-weight: bold; */
+text-align: right;
+padding-top: 7px;
+margin-bottom: 0px;
+}
+.Maincardsection{
+  height: 80vh;
+}
+
+ ::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+ ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+ ::-webkit-scrollbar-thumb {
+  background: rgb(134, 134, 134); 
+  border-radius: 10px;
+}
+
+
+.DateTime{
+  /* background-color: #999; */
+  text-align: -webkit-center;
+}
+
+.DateTime h3{
+/* background-color: #cacaca; */
+text-align: center;
+  font-size: 15px;
+  width: 100px;
+  padding: 5px 0px;
+  color: #8f8b8b;
+  background: rgb(231, 235, 235);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.imageicon a{
+  font-size: 20px;
+  color: #000;
+  padding: 6px;
+}

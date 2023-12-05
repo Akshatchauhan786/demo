@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo-project": {
+    "WhatsappWorkflow": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo-project",
+            "outputPath": "dist/whatsapp-workflow",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -25,22 +25,54 @@
               "src/assets"
             ],
             "styles": [
+             
+              "node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css",
+              "node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.css",
+              "node_modules/admin-lte/dist/css/adminlte.css",
+              "node_modules/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css",
+              "node_modules/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css",
+              "node_modules/admin-lte/dist/css/adminlte.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/quill/dist/quill.core.css", 
+              "node_modules/quill/dist/quill.snow.css",
+             
+             
               "src/styles.css"
+              
             ],
-            "scripts": []
+            
+            "scripts": [
+              "node_modules/admin-lte/plugins/jquery/jquery.js",
+              "node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js",
+              "node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js",
+              "node_modules/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js",
+              "node_modules/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js",
+              "node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js",
+              "node_modules/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js",
+              "node_modules/admin-lte/plugins/jquery-mousewheel/jquery.mousewheel.js",
+              "node_modules/admin-lte/plugins/raphael/raphael.js",
+              "node_modules/admin-lte/plugins/jquery-mapael/jquery.mapael.js",
+              "node_modules/admin-lte/plugins/chart.js/Chart.js",
+              "node_modules/admin-lte/dist/js/adminlte.js",
+              "node_modules/admin-lte/dist/js/pages/dashboard.js"
+
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+              "maximumWarning": "4mb",
+              "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
                 }
               ],
               "outputHashing": "all"
@@ -51,7 +83,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -60,10 +98,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo-project:build:production"
+              "browserTarget": "WhatsappWorkflow:build:production",
+              "proxyConfig":"src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "demo-project:build:development"
+              "browserTarget": "WhatsappWorkflow:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +110,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo-project:build"
+            "browserTarget": "WhatsappWorkflow:build"
           }
         },
         "test": {
@@ -87,8 +126,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeng/resources/themes/nova-light/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -98,6 +135,6 @@
     }
   },
   "cli": {
-    "analytics": "54c6c202-1848-427a-a704-ab9718065aaf"
+    "analytics": "439cf260-8cb0-4ac4-8cc0-01741a0b9d05"
   }
 }

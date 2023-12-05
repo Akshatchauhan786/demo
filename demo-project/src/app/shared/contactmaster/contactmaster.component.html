@@ -1,0 +1,128 @@
+
+<p-toast  position="top-right" ></p-toast>
+<section class="content-header">
+  <p-confirmDialog [style]="{width: '35vw'}" [baseZIndex]="10000" key="positionDialog"
+    rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Contact Master </h4>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+
+          <span *ngIf="selectedContacts > 0" (click)="get_tempdata()" class="btn btn-info btn-file d-flex align-items-center"><i class="pi pi-megaphone" ></i> &nbsp;Send Notification</span>
+          &nbsp; 
+          <span class="btn btn-info btn-file"><i class="pi pi-download"></i> Import<input type="file" accept=".xlsx , .csv" name="myfile" (change)="confirm1($event)"></span>
+          <p-button (click)="showBasicDialog()" icon="pi pi-plus" label="Add "></p-button>
+
+          <p-dialog header="{{dialogLabel}}" [modal]="true" [(visible)]="displayBasic" [style]="{width: '40vw'}">
+
+            <form [formGroup]="ContactForm">
+              <div style="padding-top: 20px;">
+                <div class="col-lg-12 col-md-6" style="display: flex; padding-bottom: 20px;">
+                  <label class="col-lg-3">Contact Name: </label>
+                  <input formControlName="contacts_name" class="col-lg-9" type="text" pInputText>
+                </div>
+                <div class="col-lg-12 col-md-6" style="display: flex;padding-bottom: 15px;">
+
+                  <p-message severity="error" text="Mobile is required" *ngIf="ContactForm.get('contacts_number').invalid && (ContactForm.get('contacts_number').dirty || ContactForm.get('contacts_number').touched)"></p-message>
+
+                  <label class="col-lg-3">Mobile Number: </label>
+                  <input formControlName="contacts_number" class="col-lg-9" type="text" pInputText minlength=10 maxlength=10>
+                </div>
+                <p>{{validNumber}}</p>
+                <div class="col-lg-12 col-md-6" style="display: flex;padding-bottom: 15px;">
+
+                  <p-message severity="error" text="Email is required" *ngIf="ContactForm.get('email_id').invalid && (ContactForm.get('email_id').dirty || ContactForm.get('email_id').touched)"></p-message>
+
+                  <label class="col-lg-3">Email:</label>
+                  <input formControlName="email_id" class="col-lg-9" type="text" pInputText>
+                </div>
+
+
+                <div class="col-lg-12 col-md-6" style="display: flex;padding-bottom: 15px;">
+                  <label class="col-lg-3">City Name:</label>
+
+              <p-autoComplete appendTo="body" id="city_auto"  [suggestions]="filteredCity"  formControlName="City_Name" (completeMethod)="filterCity($event)" field="City_Name" [minLength]="3"  ></p-autoComplete>
+
+                </div>
+              </div>
+            </form>
+            <ng-template pTemplate="footer">
+              <p-button icon="pi pi-check" (click)="submit($event)" label="{{sub_up}}"
+                styleClass="p-button-text"></p-button>
+            </ng-template>
+
+          </p-dialog>
+
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+
+        <app-commongrid [cols]="columns" (editEvent)="editContact($event)" (statusEvent)="changeStatusContact($event)"
+          (deleteEvent)="deleteContact($event)" [gridID]="'contactmaster'" [values]="contactsData"  (RowSelect)=rowvalue_select($event)></app-commongrid>
+
+        <!-- </div> -->
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+      
+
+          
+                
+
+
+            
+
+
+
+
+
+
+
+        
+         
+
+
+
+       
+
+
+        
+
+
+
+
+      
+
+
+
+

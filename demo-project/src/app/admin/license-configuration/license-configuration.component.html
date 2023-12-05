@@ -1,0 +1,23 @@
+<section class="content-header">
+
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-sm-6">
+          <h4>Manage License</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <app-commongrid  (renewLicense)="updateLicenseDetails($event)" [gridID]="'license_list'" [cols]="columns" [values]="license_list"></app-commongrid>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>

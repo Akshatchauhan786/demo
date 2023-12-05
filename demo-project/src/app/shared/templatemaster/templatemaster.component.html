@@ -1,0 +1,575 @@
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog [style]="{width: '20vw'}" [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Template Master</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <p-button (click)="showBasicDialog()" icon="pi pi-plus" label="Add"></p-button>
+          <p-dialog (onHide)="resettemplateform()" header="{{header__type}} " [modal]="true" [(visible)]="displayBasic"
+            class="dialogboxTemplate" [style]="{width: '100vw',height:'100vh,'}">
+            <form [formGroup]="templateinsert">
+              <div style="padding-top: 20px; ">
+                <div class="col-lg-12 col-md-6" style="display: flex;">
+                  <div class="col-lg-10">
+                    <div class="mainheader">
+                      <h1>Template Name</h1>
+                    </div>
+                    <div class="head_con">
+                      {{this.templateinsert?.controls['template_name']?.value?.length}} /
+                      {{maxNumberOfCharactersTemplate}}
+                    </div>
+                    <input type="text" class="form-control" formControlName="template_name" maxlength="30"
+                      placeholder="Enter Text In English " />
+                    <div class="col-lg-12 col-md-12">
+                      <div class="row">
+                        <div class="col-lg-6 languagename">
+                          <h2>Languages</h2>
+                          <select class="dropdown" id="LanguagesType" formControlName="language">
+                            <option>--Select Language--</option>
+                            <option *ngFor="let item of  languageshow" [value]="item.Language_Name">
+                              {{item.Language_Name| titlecase}}</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-6 languagename">
+                          <h2>Category</h2>
+                          <select class="dropdown" id="CategoryType" formControlName="category">
+                            <option>--Select Category--</option>
+                            <option *ngFor="let item of  categoryshow" [value]="item.category_name">
+                              {{item.category_name}}</option>
+                            <option value="text" id="1">Text</option>
+                            <option value="media" id="2">Media</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="headersection">
+                      <div class="mainheader">
+                        <h1>Header </h1>
+                        <p>Optional</p>
+                      </div>
+                      <p>Add a title or choose which type of media you'll use for this header.</p>
+                      <div style="padding-top: 20px;">
+                        <div class="col-lg-12 col-md-12" style="display: flex; padding-bottom: 20px;">
+                          <div class="col-lg-2">
+                            <select class="dropdown" id="headerType" formControlName="header_type"
+                              (click)="headerselect()">
+                              <option value="none" id="0" selected>None</option>
+                              <option value="text" id="1">Text</option>
+                              <option value="media" id="2">Media</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-10" style="display: inline-grid;">
+                            <div *ngIf="headerType=='text'" class="form-group">
+                              <div>
+                                <div class="head_con">
+                                  {{this.templateinsert?.controls['text_header']?.value?.length}} /{{maxNumberOfCharactersHeader}}
+                                </div>
+                                <input type="text" class="form-control" (change)="changeVariables($event, 'text_header')" formControlName="text_header" maxlength="60" placeholder="Enter Text In English (maxlength 60 word!)" />
+
+                                <!-- <input type="text" class="form-control"  formControlName="text_header" maxlength="60" placeholder="Enter Text In English (maxlength 60 word!)" /> -->
+                                  <button class="addbtn" (click)="addvarheader('text_header')">+ Add Variable</button>
+
+
+
+                              </div>
+                            </div>
+                            <div *ngIf="headerType=='media'">
+                              <input type="file" id="myfile" name="myfile" (change)="readURL($event);">
+                              <section class="content" style="margin-top: 20px;">
+                                <div class=" row btn-group btn-group-toggle" id="docvalue" data-toggle="buttons">
+                                  <div class="col-md-4 col-sm-6 col-12">
+                                    <div class="info-box">
+                                      <label class="btn bg-olive active">
+                                        <input type="radio" id="option_b1" formControlName="media_type"
+                                          (click)="headerimage('image')" value="image" autocomplete="off" checked>
+                                        <img src="assets/img/img.png" alt="User Image" width="100%" class="elevation-2">
+                                        <p class="mediatext"> Image</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4 col-sm-6 col-12">
+                                    <div class="info-box">
+                                      <label class="btn bg-olive">
+                                        <input type="radio" id="option_b2" formControlName="media_type"
+                                          (click)="headerimage('video')" value="video" autocomplete="off">
+                                        <img src="assets/img/1115243-200.png" alt="User Image" width="100%"
+                                          class=" elevation-2">
+                                        <p class="mediatext"> Video</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4 col-sm-6 col-12">
+                                    <div class="info-box">
+                                      <label class="btn bg-olive">
+                                        <input type="radio" formControlName="media_type" (click)="headerimage('doc')"
+                                          id="option_b3" value="doc" autocomplete="off">
+                                        <img src="assets/img/document-icon.png" alt="User Image" width="100%"
+                                          class=" elevation-2">
+                                        <p class="mediatext"> Document</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </section>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="headersection">
+                      <div class="mainheader">
+                        <h1>Body</h1>
+                      </div>
+                      <p>Enter the text for your message in the language that you've selected.</p>
+                      <div class="head_con">
+                        {{this.templateinsert?.controls['text_body']?.value?.length}} / {{maxNumberOfCharactersbody}}
+                      </div>
+
+                      <p-editor [style]="{'height':'320px'}" (change)="changeVariables2($event,'text_body')"   formControlName="text_body"
+                        placeholder="Enter Text In English" >
+                        
+
+                        
+                      </p-editor>
+                      <button class="addbtn" (click)="addvarbody('text_body')">+ Add Variable</button>
+
+                    </div>
+                    <div class="headersection">
+                      <div class="mainheader">
+                        <h1>Footer</h1>
+                        <p>Optional</p>
+                      </div>
+                      <div class="form-group">
+                        <div class="head_con">
+                          {{this.templateinsert?.controls['text_body']?.value?.length}} / {{maxNumberOfCharactersbody}}
+                        </div>
+                        <input type="text" class="form-control" formControlName="text_footer" maxlength="70"
+                          placeholder="Enter English Text Hear">
+                      </div>
+                    </div>
+                    <div class="headersection">
+                      <div class="mainheader">
+                        <h1>Buttons</h1>
+                        <p>Optional</p>
+                      </div>
+                      <p>Create buttons that let customers respond to your message or take action.</p>
+                      <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          <div style="display:flex" class="tempfooter">
+                            <i class="nav-icon far fa-snowflake"></i> &nbsp;<h5>We recommend adding the marketing
+                              opt-out button</h5>
+                          </div>
+                          <p class="card-text">
+                            Allow customers to request to opt out of all marketing messages. This can help reduce blocks
+                            from customers and increase your quality rating. <a>Learn More</a>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-2">
+                              <h2 class="phone_num">Call Phone Number</h2>
+                              <input type="checkbox" (change)="checkValue($event)" />
+                            </div>
+                            <div class="col-3">
+                              <label>Button Text</label>
+                              <input type="text" formControlName="call_type_button_text" class="form-control"
+                                placeholder="Type Button Text">
+                            </div>
+                            <div class="col-2">
+                              <label>Country</label>
+                              <select class="form-control select2" formControlName="call_type_conutry"
+                                style="width: 100%;">
+                                <option value="+1" selected="selected">USA +1</option>
+                                <option value="+91"> India +91 </option>
+                                <option value="+51"> Shri Lunka +51 </option>
+                              </select>
+                            </div>
+                            <div class="col-4">
+                              <label>Phone Number</label>
+                              <input type="text" class="form-control" formControlName="call_type_phone_no"
+                                placeholder="+91 123 456 7890">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-2">
+                              <h2 class="phone_num">Visit Website</h2>
+                              <input type="checkbox" (change)="checkwebsite($event)" />
+                            </div>
+                            <div class="col-3">
+                              <label>Button Text</label>
+                              <input type="text" formControlName="web_type_button_text" class="form-control"
+                                placeholder="Type Button Text">
+                            </div>
+                            <div class="col-2">
+                              <label>URL Type</label>
+                              <select class="form-control select2" formControlName="URL_type" style="width: 100%;">
+                                <option selected="selected">Static</option>
+                                <option>Dynamic</option>
+                              </select>
+                            </div>
+                            <div class="col-4">
+                              <label>Website Url</label>
+                              <input type="text" class="form-control" formControlName="website_url"
+                                placeholder="https://www.example.com">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding-top: 20px;">
+                        <div class="col-lg-12 col-md-12">
+                          <div class="col-lg-3">
+                            <select class="dropdown" id="bottomType" (click)="bottomselect()"
+                              formControlName="button_type" optionValue="btmid">
+                              <option btmid="0" selected>None</option>
+                              <!-- <option value="action" btmid="1">Call To Action</option> -->
+                              <option value="marketing" btmid="3">Marketing opt-out Recommended</option>
+                              <option value="custom" btmid="4">Custom</option>
+                            </select>
+                          </div>
+                          <!-- <label >City Name: </label> -->
+                          <div class="col-lg-12">
+                            <div *ngIf="bottomType=='marketing'">
+                              <div class="card card-danger" style="margin-top: 15px;">
+                                <!-- Marketing opt -->
+                                <div class="card-body calltoaction">
+                                  <div class="row">
+                                    <div class="col-4">
+                                      <label>Type </label>
+                                      <input type="text" class="form-control" formControlName="Marketing_type"
+                                        placeholder="Marketing opt-out" readonly>
+                                    </div>
+                                    <div class="col-4">
+                                      <label>Button Text</label>
+                                      <input type="text" class="form-control"
+                                        formControlName="Marketing_type_button_text" placeholder="Stop Promotions"
+                                        readonly>
+                                    </div>
+                                    <div class="col-4">
+                                      <label>Footer Text</label>
+                                      <input type="text" class="form-control"
+                                        formControlName="Marketing_type_footer_text"
+                                        placeholder="No Interested? Tap Stop Promotions" readonly>
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <!-- checkbox -->
+                                      <div class="form-group clearfix">
+                                        <div class="icheck-primary d-inline">
+                                          <input type="checkbox" id="checkboxPrimary3">
+                                          <label for="checkboxPrimary3">&nbsp;I understand that it's Test WhatsApp
+                                            Business Account's responsibility to stop sending marketing messages to
+                                            customers who opt out.
+                                          </label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div *ngIf="bottomType=='custom'" class="form-group">
+                              <div class="card card-danger" style="margin-top: 15px;">
+                                <!-- Custom Section -->
+                                <div class="card-body calltoaction">
+                                  <div class="row">
+                                    <div class="col-4">
+                                      <label>Type </label>
+                                      <input type="text" class="form-control" placeholder="Custom Type" disabled>
+                                    </div>
+                                    <div class="col-6">
+                                      <label>Button Text</label>
+                                      <input type="text" class="form-control" formControlName="Marketing_type_custom"
+                                        maxlength="35" placeholder="Enter Text Hear">
+                                      {{this.templateinsert.controls['Marketing_type_custom'].value.length}} /
+                                      {{maxNumberOfCharactersCuston}}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 templatePreview">
+                    <div class="container">
+                      <div class="chat-messages">
+                        <div class="chat">
+                          <div class="chat-content clearfix">
+                            <span class="friend last">
+                              <div class="tempheader">
+                                <h3 *ngIf="headerType == 'text'">{{templateinsert.controls['text_header'].value}} </h3>
+                              </div>
+                              <div *ngIf="headerType == 'media'" class="tempimg">
+                                <img *ngIf="docvalue == 'image'" src="{{imageSrc}}"
+                                  onerror="this.onerror=null;this.src='assets/img/1115243-200.png'" width="100%"
+                                  alt="User Image">
+                                <video #video_here *ngIf="docvalue=='video'" [src]="imageSrc" height="160" width="260"
+                                  controls></video> <br />
+                                <img *ngIf="docvalue == 'doc'" src="{{media_url}}" width="100%" alt="User Image">
+                              </div>
+                              <div class="tempbody">
+                                <p [innerHTML]="templateinsert.controls['text_body'].value"></p>
+                              </div>
+                              <div class="tempmainfooter">
+                                <p [innerHTML]="templateinsert.controls['text_footer'].value"></p>
+                                <span class="time"> 7:30 PM </span>
+                              </div>
+                              <div class="tempbtn">
+                                <li class="nav-item">
+                                  <a class="nav-link tempfootermaad" *ngIf="isphone == true">
+                                    <i class="nav-icon fa fa-phone-alt" style="padding-right: 5px;"></i>
+                                    <p style="padding-left: 5px; margin-bottom: 0rem;">
+                                      {{templateinsert.controls['call_type_button_text'].value}} </p>
+                                  </a>
+                                  <a class="nav-link tempfootermaad" *ngIf="iswebsite == true">
+                                    <i class="nav-icon fa fa-external-link-alt" style="padding-right: 5px;"></i>
+                                    <p style="padding-left: 5px; margin-bottom: 0rem;">
+                                      {{templateinsert.controls['web_type_button_text'].value}}</p>
+                                  </a>
+                                  <a class="nav-link tempfootermaad">
+                                    <p style="padding-left: 5px; margin-bottom: 0rem;">
+                                      {{templateinsert.controls['Marketing_type_button_text'].value}}</p>
+                                  </a>
+                                  <a class="nav-link tempfootermaad">
+                                    <p style="padding-left: 5px; margin-bottom: 0rem; width: 100%;">
+                                      {{templateinsert.controls['Marketing_type_custom'].value}}</p>
+                                  </a>
+                                </li>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- chat system end hear -->
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ng-template pTemplate="footer">
+              <!-- (click)="displayBasic=false" -->
+              <p-button icon="pi pi-check" (click)="check_for_submission()" label="Submit"
+                styleClass="p-button-text"></p-button>
+            </ng-template>
+          </p-dialog>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="col-lg-12 col-sm-6">
+          <div class="card card-primary card-outline card-outline-tabs">
+            <div class="card-header p-0 border-bottom-0">
+              <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
+                    href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
+                    aria-selected="true">Template Library</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                    href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                    aria-selected="false">Active</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill"
+                    href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages"
+                    aria-selected="false">Deleted</a>
+                </li>
+
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-four-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
+                  aria-labelledby="custom-tabs-four-home-tab">
+                  <div class="row no-gutters">
+                    <div class="col-lg-2 col-sm-4" *ngFor="let item of templatedata">
+                      <div class="card widthmanage">
+                        <div style="display:flex">
+                          <li class="newblue tooltip1" *ngIf="item.Status=='N'">
+                            <p class="tooltiptext1">New</p>
+                          </li>
+                          <li class="approved tooltip1" *ngIf="item.Status=='A'">
+                            <p class="tooltiptext1">Approved</p>
+                          </li>
+                          <li class="panding tooltip1" *ngIf="item.Status=='P'">
+                            <p class="tooltiptext1">Pending</p>
+                          </li>
+                          <li class="Rejected tooltip1" *ngIf="item.Status=='R'">
+                            <p class="tooltiptext1">Rejected</p>
+                          </li>
+                          <li class="Delete tooltip1" *ngIf="item.Status=='D'">
+                            <p class="tooltiptext1">Delete</p>
+                          </li>
+                        </div>
+                        <img *ngIf="item?.media_type=='image'" src="{{template_document_baseurl}}{{item.media}}"
+                          class="card-img-top" alt="...">
+                        <video *ngIf="item?.media_type=='video'" width="250" height="140" controls class="card-img-top"
+                          alt="...">
+                          <source src="{{template_document_baseurl}}{{item.media}}" type="video/mp4">
+                        </video>
+                        <img *ngIf="item?.media_type=='doc'" src="./assets/img/document-icon.png" class="card-img-top"
+                          alt="...">
+                        <div class="card-body" style="padding-top: 5px;">
+                          <h5 class="card-title tempheadview">{{item.text_header}}</h5>
+                          <p class="card-text textbodyContent" style="margin-bottom: 0rem; margin-top: 10px;"
+                            [innerHTML]="item.text_body"></p>
+                          <p class="card-text textfooter">{{item.text_footer}}</p>
+                          <a *ngIf="item.call_type_conutry" href="tel:{{item.call_type_phone_no}}"
+                            style="width: 100%; margin-bottom: 5px;" class="btn btn-light"><i
+                              class="nav-icon fa fa-phone-alt"></i> {{item.call_type_conutry}}
+                            {{item.call_type_button_text}}</a>
+                          <a *ngIf="item.URL_type" routerLink="{{item.website_url}}" target="_blank"
+                            style="width: 100%; margin-bottom: 10px;" class="btn btn-light"><i
+                              class="nav-icon fa fa-external-link-alt"></i> {{item.web_type_button_text}}</a>
+                          <p style="font-size: 15px; font-weight: bold;" class="card-text textfooter">
+                            {{item.Marketing_type_custom}}</p>
+                        </div>
+                      </div>
+                      <div class="card-mainfooter">
+                        <div class="maintempname">
+                          <h3>{{item.template_name}}</h3>
+                        </div>
+                        <div class="mainaction">
+                          <a (click)="edittemplate(item)"><i class="nav-icon far fa-edit"></i></a>
+                          <a (click)="delete_template(item.id)"><i class="nav-icon fas fa-trash-alt"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
+                  aria-labelledby="custom-tabs-four-profile-tab">
+                  <section class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <table id="templateActive" class="table table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th style="width:5%; text-align: center;">S.No</th>
+                                    <th style="width:30%;">Name</th>
+                                    <th style="width:10%;">Created By</th>
+                                    <th style="width:10%;">Category</th>
+                                    <th style="width:20%;">Preview</th>
+                                    <th style="width:15%;">Languages</th>
+                                    <th style="width:15%; text-align: center;">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr class="tablecontent" *ngFor="let item of Activedata">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.template_name}}</td>
+                                    <td>{{item.client_id}}</td>
+                                    <td>{{item.category}}</td>
+                                    <td class="storybody1" [innerHTML]="item.text_body"></td>
+                                    <td class="languagecol">
+                                      <div class="languagesec">
+                                        <i class="fas fa-circle"></i> {{item.language}}
+                                      </div>
+                                    </td>
+                                    <td class="project-actions text-center ">
+                                      <a (click)="delete_template(item.id)"
+                                        class="btn btn-secondary btn-sm btnspace unblockbtn">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                  </section>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel"
+                  aria-labelledby="custom-tabs-four-messages-tab">
+                  <section class="content">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <table id="templatedelete" class="table table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th style="width:5%; text-align: center;">S.No</th>
+                                    <th style="width:30%;">Name</th>
+                                    <th style="width:10%;">Created By</th>
+                                    <th style="width:10%;">Category</th>
+                                    <th style="width:20%;">Preview</th>
+                                    <th style="width:15%;">Languages</th>
+                                    <th style="width:15%; text-align: center;">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr class="tablecontent" *ngFor="let item of deletedata">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.template_name}}</td>
+                                    <td>{{item.client_id}}</td>
+                                    <td>{{item.category}}</td>
+                                    <td class="storybody1" [innerHTML]="item.text_body"></td>
+                                    <td class="languagecol">
+                                      <div class="languagesec">
+                                        <i class="fas fa-circle"></i>{{item.language}}
+                                      </div>
+                                    </td>
+                                    <td class="project-actions text-center ">
+                                      <a (click)="Permanentdelete_template(item.id)"
+                                        class="btn btn-secondary btn-sm btnspace unblockbtn">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>

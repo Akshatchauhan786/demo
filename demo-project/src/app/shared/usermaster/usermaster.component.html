@@ -1,0 +1,176 @@
+<p-toast ></p-toast>
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4>User Master </h4>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <!-- <li class="breadcrumb-item"><a routerLink="#">Home</a></li>
+                <li class="breadcrumb-item active">City Master</li> -->
+  
+                <p-button (click)="showBasicDialog()" icon="pi pi-plus" label="Add"></p-button>
+                <p-dialog header="{{dialogLabel}}" [modal]="true" [(visible)]="displayBasic" [style]="{width: '40vw'}">
+                
+                  <!-- <label>Contact Name: </label> &nbsp;
+                    <input type="text" pInputText [(ngModel)]="value1" style="width: 50%;">
+                 
+                  <label>Mobile Number: </label> &nbsp;
+                  <input type="text" pInputText [(ngModel)]="value1" style="width: 50%;"> -->
+                  <form [formGroup]="userForm">
+                  <div style="padding-top: 20px;">
+
+                    <div class="col-lg-12 col-md-6" style="display: flex; padding-bottom: 20px;" >
+                      <label class="col-lg-3">First Name </label> 
+                    <input  formControlName="firstName"  class="col-lg-9" type="text" pInputText  >
+                    </div>
+
+                    <div  class="col-lg-12 col-md-6" style="display: flex; padding-bottom: 20px;">
+                      <label class="col-lg-3">Last Name: </label>
+                    <input formControlName="lastName"  class="col-lg-9" type="text" pInputText >
+                    </div>
+                    <div  class="col-lg-12 col-md-6" style="display: flex;padding-bottom: 20px;">
+
+                      <p-message severity="error" text="Mobile is required" *ngIf="userForm.get('PhoneNo').invalid && (userForm.get('PhoneNo').dirty || userForm.get('PhoneNo').touched)"></p-message>
+
+                      <label class="col-lg-3">Mobile Number: </label> 
+                    <input formControlName="PhoneNo"   class="col-lg-9" type="text" pInputText  >
+                    
+                    </div>
+                    <p>{{validNumber}}</p>
+
+                    <div class="col-lg-12 col-md-6" style="display: flex;padding-bottom: 20px;">
+
+                      <p-message severity="error" text="Mobile is required" *ngIf="userForm.get('EmailAddress').invalid && (userForm.get('EmailAddress').dirty || userForm.get('EmailAddress').touched)"></p-message>
+
+                        <label class="col-lg-3">Email: </label> 
+                      <input  formControlName="EmailAddress"  class="col-lg-9" type="text" pInputText  >
+                      </div>
+                      <p>{{emailCheck}}</p>
+
+
+                      <div *ngIf="sub_up !='Update'"  class="col-lg-12 col-md-6" style="display: flex;">
+
+                        <p-message severity="error" text="Password  is required" *ngIf="userForm.get('Password').invalid && (userForm.get('Password').dirty || userForm.get('Password').touched)"></p-message>
+
+
+                      
+                      <label class="col-lg-3">Password</label> 
+                      <input  formControlName="Password" class="col-lg-9" type="text" pInputText>
+                      </div>
+
+
+                      
+                      
+                  </div>
+
+                  </form>
+
+                
+                  <!-- <input type="text" pInputText [(ngModel)]="value1"> 
+                  <span class="ml-2">{{value1}}</span> -->
+                    <ng-template pTemplate="footer">
+                        <p-button icon="pi pi-check" (click)="submit($event)" label="{{sub_up}}" styleClass="p-button-text"></p-button>
+                    </ng-template>
+
+                </p-dialog>
+
+
+
+                
+                
+                <p-toast ></p-toast>
+                <p-dialog header="Reset Password" [modal]="true" [(visible)]="displayresetPasswordDialog"   [style]="{width: '40vw'}      ">
+                 
+
+                
+
+                  <form [formGroup]="resetPwdform">
+                    <div style="padding-top: 20px;">
+  
+                      <div class="col-lg-12 col-md-6" style="display: flex; padding-bottom: 20px;" >
+                        <label class="col-lg-3">Reset Password</label> 
+                        <input  formControlName="resetPwd" class="col-lg-9" type="text" pInputText>
+                      </div>
+                      </div>
+
+
+                    </form>
+
+                    <ng-template pTemplate="footer">
+                      <p-button icon="pi pi-check" (click)="resetpwd()" label="Conform" styleClass="p-button-text"> </p-button>
+                  </ng-template>
+
+                </p-dialog>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+  
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+             
+              <app-commongrid (resetpasswordEvent)="Resetpassword($event)"  (editEvent)="editUser($event)"  (statusEvent)="changeStatusUser($event)"  (deleteEvent)="deleteUser($event)"   [gridID]="'usermaster'" [values]="users" [cols]="columns" ></app-commongrid>
+
+<!--   
+           <div class="card">
+                
+                <div class="card-body">
+                  <table id="usermaster" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th style="width:5%; text-align: center;">S.No</th>
+                      <th style="width:20%;">Name</th>
+                      <th style="width:15%;">Mobile Number</th>
+                      <th style="width:20%;">Email</th>
+                      <th style="width:15%;">Role</th>
+                      <th style="width:25%; text-align: center;">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="tablecontent">
+                      <td>1</td>
+                      
+                      <td>Deepak Dixit</td>
+                      <td>7844997508</td>
+                      <td>deepakdixit@gmail.com</td>
+                      <td>Admin</td>
+                      <td class="project-actions text-center ">
+                        
+                          <a class="btn btn-success btn-sm btnspace" routerLink="#">
+                            <i class="fas fa-check"></i>
+                         Active
+                          </a>
+                          <a class="btn btn-info btn-sm btnspace" routerLink="#">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Edit
+                            </a>
+                          <a class="btn btn-danger btn-sm btnspace" routerLink="#">
+                          <i class="fas fa-trash">
+                          </i>
+                          Delete
+                          </a>
+                      </td>
+                    </tr>
+                   
+          
+                    </tbody>
+                 
+                  </table>
+                </div>
+               /.card-body -->
+              <!-- </div>  --> 
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+     

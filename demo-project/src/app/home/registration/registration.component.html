@@ -1,0 +1,89 @@
+
+
+<p-toast position="top-right"></p-toast>
+<div class="wrap">
+  <form [formGroup]="registrationuser" >
+      <fieldset  >
+          <legend style="text-align: center;">
+            <img src="../../assets/img/icon3.png" alt="Hand Holding Joystick" style="width: 80px; padding-top: 10px;">
+          </legend>
+          <h2 class="formdetail">Personal Details</h2>
+          <div class="form-group">
+            <input type="text" formControlName="firstName" placeholder="First Name"/>
+            <input type="text" formControlName="lastName" placeholder="Last Name"/>
+          </div>
+          <div class="form-group">
+            <input type="text" formControlName="PhoneNo" placeholder="Phone Number"/>
+            <input type="email" formControlName="EmailAddress" placeholder="Work Email Address"/>
+          </div>
+          <div class="form-group">
+            <input type="password" formControlName="Password" id="password" placeholder="Password"/>
+            <input type="password" formControlName="confirm_password" id="confirm_password" placeholder="Conform Password"/>
+          </div>
+
+          <h2 class="formdetail">Company Details</h2>
+          <div class="form-group">
+            <input type="text" formControlName="CompanyName" placeholder="Company Name"/>
+            <input type="text" formControlName="CompanyWebsite" placeholder="Company Website"/>
+          </div>
+          <div class="form-group">
+            <input type="text" formControlName="CompanyLocation" placeholder="Company Location"/>
+            
+              <div class="select" >
+                  <select formControlName="Country">
+                      <option value="">-- Select Country --</option>
+                      <option value="India" >India</option>
+                      <option value="shri Lanka">Shri Lanka</option>
+                      <option value="tun">Tunisia</option>
+                  </select>
+
+
+               
+                  <div class="select__arrow"></div>
+              </div>
+          
+          </div>
+
+          <div class="form-group">
+            <input type="text" formControlName="Designation" placeholder="Designation"/>
+            
+              <div class="select">
+                  <select  formControlName="BusinessName">
+                      <option value="">-- Industry of your Business --</option>
+                      <option value="Marketing">Advertising, Media & Marketing Services</option>
+                      <option value="Crafts">Arts & Crafts</option>
+                      <option value="Automobile">Automobile & Auto Parts</option>
+                      <option value="Children">Baby & Children Products</option>
+                      <option value="Personal">Beauty & Personal Care</option>
+                      <option value="Enterprise">Business & Enterprise</option>
+                      <option value="Apparel">Clothing & Apparel</option>
+                      <option value="Marketplace">E-commerce Marketplace</option>
+                      <option value="Training">Education & Training</option>
+                      <option value="Appliances">Electronics & Appliances</option>
+                      <option value="Entertainment">Entertainment</option>
+                      <option value="Management">Event Planning & Management</option>
+                  </select>
+                  <div class="select__arrow"></div>
+              </div>
+          
+          </div>
+
+          <div class="form-group" style="float: left; padding-left: 25px;">
+            <label class="termsandcondi">
+              <input type="checkbox" formControlName="TermsConditions"> I accept terms and conditions and privacy policy
+            </label>
+          </div>
+          
+          
+
+
+      <button class="submitForm" (click)="submit_registration_user()" >Register with BotinPro</button>
+      <div class="form-group">
+        <label style="display: flex;justify-content: center;">
+        <p>Already a member ? </p>  
+        <a routerLink="/login" style="color: #e57f42;"> &nbsp; Sign in Here!</a>
+        </label>
+      </div>
+      </fieldset>
+  </form>
+</div>

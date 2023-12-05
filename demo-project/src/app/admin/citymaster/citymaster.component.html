@@ -1,0 +1,61 @@
+
+
+
+<p-toast ></p-toast>
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4>City Master</h4>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <!-- <li class="breadcrumb-item"><a >Home</a></li>
+              <li class="breadcrumb-item active">City Master</li> -->
+
+              <p-button (click)="showBasicDialog()" icon="pi pi-plus" label="Add"></p-button>
+              
+              <p-dialog header="{{dialogLabel}}" [modal]="true" [(visible)]="displayBasic" [style]="{width: '40vw'}">
+                <form [formGroup]="cityForm">
+                <div style="padding-top: 20px;">
+                  <div class="col-lg-12 col-md-6" style="display: flex; padding-bottom: 20px;">
+                    <p-message severity="error" text="City is required" *ngIf="cityForm.get('City_Name').invalid && (cityForm.get('City_Name').dirty || cityForm.get('City_Name').touched)"></p-message>
+
+                    <label class="col-lg-2">City Name: </label>
+
+                  <input formControlName="City_Name" class="col-lg-10" type="text" pInputText >
+                  </div>
+                  
+                </div>
+
+              </form>
+                  <ng-template pTemplate="footer">
+                      <p-button icon="pi pi-check" (click)="submit($event)"  label="{{sub_up}}" styleClass="p-button-text"></p-button>
+                  </ng-template>
+              </p-dialog>
+
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+
+
+           
+
+              <app-commongrid   (editEvent)="editCity($event)"  (statusEvent)="changeStatusCity($event)"  (deleteEvent)="deleteCity($event)" [gridID]="'mastercity'" [cols]="columns" [values]="cities" ></app-commongrid>
+              
+  
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+   

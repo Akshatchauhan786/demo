@@ -1,0 +1,173 @@
+<div class="card" id="commonGrid">
+    <p-confirmDialog [style]="{width: '20vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+    <div class="card-body">
+        <!-- <table id="{{gridID}}" class="table table-bordered table-striped" > -->
+            <p-table #dt [columns]="cols" styleClass="p-datatable-gridlines"  [(selection)]="selectedvalue"   (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowSelect($event)"  
+            [value]="values" [rowHover]="true"
+             [scrollable]="true" [paginator]="values?.length>15? true : false" [rows]="15" scrollHeight="calc(100vh - 19.5rem)"
+              [globalFilterFields]="globalfilter" [tableStyle]="{'min-width': '50rem'}">
+
+                <ng-template pTemplate="caption"   >
+                    <div class="table-header d-flex justify-content-between align-items-center">
+                        <div>
+                            Total records: {{values?.length}}   &nbsp;   &nbsp;  &nbsp;  &nbsp;      <span  *ngIf="gridID=='contactmaster' &&   selectlength> 0"> Total Select Record :{{selectedvalue?.length}} </span>  
+                        </div>
+                        <span class="p-input-icon-left" style="border-radius: 3px;">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" style="padding: .2rem; padding-left: 2rem;" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-rowData let-i="rowIndex" let-columns="columns">
+                  
+                    <tr >                    
+                        <th   *ngFor="let columns of cols; " style="text-align: center;"  [pSortableColumn]="columns.id">{{columns.title}} 
+                            <p-sortIcon *ngIf="columns.id!='CheckBox'" field="{{columns.id}}">   </p-sortIcon>
+                            <div *ngIf="columns.id=='CheckBox'"     style="text-align: initial;"  >
+
+
+                              
+
+                                <p-tableHeaderCheckbox [value]="values" [index]="i" ></p-tableHeaderCheckbox>
+                            </div> 
+                         
+                        </th>
+                    </tr>
+                </ng-template>
+
+            <!-- <tbody> -->
+                <ng-template pTemplate="body" let-item let-i="rowIndex" let-columns="columns">
+                <tr class="tablecontent"  [pSelectableRow]="cols" >
+                 
+                    <td *ngFor="let col of cols" [ngStyle]="col.id =='Status'?{'text-align': 'center'}:{}">
+                        <div *ngIf="col.title==''" >
+                        <p-tableCheckbox [value]="item" [index]="i" ></p-tableCheckbox> 
+
+                    </div>
+                        <!--************** comman settings************** -->
+
+                        <span  *ngIf="col.id == 'sno'">{{i+1}}</span>
+                        <span *ngIf="col.id != 'user_count' && col.id != 'Status' && col.id != 'start_date' && col.id != 'end_date'">{{item[col.id] | titlecase}}</span>
+                        <span *ngIf="col.id == 'user_count'">{{item[col.id]}}</span>
+
+                        <!--************** comman settings************** -->
+
+
+                        <!-- ********************master settings ******************** -->
+
+                        <div class="project-actions text-center" *ngIf="col.id == 'action' && gridID!='approvallsit' && gridID!='license_list'" >
+ 
+                            <a  *ngIf="gridID!='contactmaster' && gridID!='usermaster' && gridID!='blocklist'"  (click)="statusItem(item)" [class]="item.Status=='1'?'btn btn-success  btnspace':'btn btn-warning  btnspace'">
+                                <i [class]="item.Status=='1'?'fas fa-check':'fas fa-ban'"></i>
+                               <span *ngIf="item.Status=='1'">Active</span> 
+                               <span *ngIf="item.Status=='0'">Inactive</span> 
+                            </a>
+                            <a  *ngIf="gridID=='usermaster'"  (click)="statusItem(item)" [class]="item.Status=='A'?'btn btn-success  btnspace':'btn btn-warning  btnspace'">
+                                <i [class]="item.Status=='A'?'fas fa-check':'fas fa-ban'"></i>
+                               <span *ngIf="item.Status=='A'">Active</span> 
+                               <span *ngIf="item.Status=='R'">Inactive</span> 
+                            </a>
+                            <a *ngIf="gridID=='contactmaster'"  (click)="statusItem(item)" [class]="item.blocked_contacts=='1'?'btn  action-btn btn-success  btnspace':'btn btn-warning  btnspace'">
+                                <i [class]="item.blocked_contacts=='1'?'fas fa-check':'fas fa-ban'"></i>
+                               <span *ngIf="item.blocked_contacts=='1'">Active</span> 
+                               <span *ngIf="item.blocked_contacts=='0'">Inactive</span> 
+                               
+                            </a>
+                            <a *ngIf=" gridID!='blocklist'"  (click)="editItem(item)" class="btn btn-info action-btn btn btnspace">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            <a *ngIf=" gridID!='blocklist'" (click)="confirm1(item)" class="btn btn-danger action-btn btn btnspace">
+                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+
+                            <a *ngIf="gridID=='usermaster'" id="resetPassword" (click)="RestPassword(item)" class="btn btn-info action-btn btn ">
+                                <i class="fas fa-key">
+                                </i>
+                                Reset pwd
+                            </a>
+                        </div>
+
+                        <!-- ********************master settings ******************** -->
+
+
+                        <!--  ******************** approval list settings ********************  -->
+
+                        <span *ngIf="gridID=='approvallsit' && col.id == 'Status' && item[col.id]=='A'" class="status-chip-success" >Approved</span>
+                        <span *ngIf="gridID=='approvallsit' && col.id == 'Status' && item[col.id]=='R'" class="status-chip-danger" >Rejected</span>
+                        <span *ngIf="gridID=='approvallsit' && col.id == 'Status' && item[col.id]=='P'" class="status-chip-warning" >Pending</span>
+                        <div class="project-actions text-center" *ngIf="col.id == 'action' && gridID=='approvallsit'" >
+ 
+                            <button [disabled]="item['Status'] == 'A'" id="approved" (click)="Approve_reject_user(item, 'A')"  class="btn btn-success">
+                                <i class="fas fa-check"></i>
+                                Approve
+                            </button>    
+                            <button [disabled]="item['Status'] == 'R'" id="approved"  (click)="Approve_reject_user(item, 'R')"  class="btn btn-danger  mx-2">
+                                <i class="fas fa-times">
+                                </i>
+                                Reject
+                            </button>    
+                        </div>
+                        <!--  ******************** approval list settings ********************  -->
+                        
+
+                        <!--  ******************** license list settings ********************  -->
+
+                        <span *ngIf="col.id == 'start_date' && gridID=='license_list'">{{item[col.id].split('T')[0]}}</span>
+                        <span *ngIf="col.id == 'end_date' && gridID=='license_list'">{{item[col.id].split('T')[0]}}</span>
+                        <span *ngIf="col.id == 'Duration' && gridID=='license_list'">{{get_duration(item['end_date'])}}</span>
+                        <span *ngIf="gridID=='license_list' && col.id == 'Status' && duration > 15" class="status-chip-success" >Active</span>
+                        <span *ngIf="gridID=='license_list' && col.id == 'Status' && duration <= 0" class="status-chip-danger" >Expired</span>
+                        <span *ngIf="gridID=='license_list' && col.id == 'Status' && duration <= 15 && duration > 0" class="status-chip-warning" >Expiring soon</span>
+                        <div class="project-actions text-center" *ngIf="col.id == 'action' && gridID=='license_list'" >
+                            <p-inplace [closable]="true" closeIcon="pi pi-check" (onDeactivate)="updateLicenseDetails(item.Client_Id)">
+                                <ng-template  pTemplate="display">
+                                    <a id="approved" class="btn btn-info  mx-2"><i class="pi pi-wallet"></i> Renew</a>
+                                </ng-template>
+                                <ng-template pTemplate="content">
+                                    <p-calendar appendTo="body" class="defaultDatePickerDesign" [(ngModel)]="RenewalDate" [showIcon]="true" inputId="icon"></p-calendar>
+                                </ng-template>
+                            </p-inplace>
+                        </div>
+
+                        <!--  ******************** license list settings ********************  -->
+
+                        <!-- ********************block list settings ******************** -->
+                                            
+                                            
+                        <div class="project-actions text-center" *ngIf="col.id == 'action'    ">
+                            <a (click)="blocklist_conformation(item)" *ngIf="gridID=='blocklist'" class="btn btn-warning  "> <i
+                                    [class]="item.Status=='0'?'fas fa-check':'fas fa-ban'">&nbsp;&nbsp;<small ><b>Unblock</b></small></i> <span  unblock
+                                    *ngIf="item.Status=='0'"></span>
+                            </a>
+
+
+                            
+                        </div>
+
+
+
+
+                    </td>
+                
+
+
+                  
+                </tr>
+
+                             
+               
+
+
+
+
+              
+            <!-- </tbody> -->
+                </ng-template>
+            </p-table>
+        <!-- </table> -->
+    </div>
+</div>
