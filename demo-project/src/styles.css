@@ -269,3 +269,14 @@ p-dropdown{
     width: 80px!important;
 }
 
+.hero__image{
+    height: 5rem !important;
+  }
+
+
+
+  .homefooter{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }

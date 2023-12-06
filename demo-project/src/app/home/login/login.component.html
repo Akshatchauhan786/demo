@@ -1,42 +1,41 @@
-
 <p-toast position="top-right"></p-toast>
 
-<form [formGroup]="loginForm" >
-   
-    <div class="wrapper">
-      
-        <div class="login">
-           
-          <div class="login-form">    
-            <div class="logoicon">
-                <img src="../../assets/img/icon3.png" alt="Hand Holding Joystick" style="width: 70px;">
+<form [formGroup]="loginForm">
 
-            </div> 
-            <h1 class="login-title">Login</h1>
-            <div class="form-wrapper">
-              <div class="input-wrapper">
-                 <label class="label" for="email">Email Address</label>
-                <input class="input" type="text"  formControlName="userName"  autocomplete="off"/>
-              </div><br>
-              <div class="input-wrapper">
-                 <label class="label" for="password">Password</label>
-                <input class="input" type="password"  formControlName="password"  />
-              </div>
-              <div class="action-help">
-                <a class="help-link" >Forgot your password?</a>
-              </div>
-              <div class="actions">
-                <input class="action" (click)="submit_login()" type="submit" value="Login"/>
-                <div class="signup-action">
-                  Don't have an account?  <a class="signup-link" routerLink="/registration" > &nbsp; Sign Up Here!</a>
-                </div>
-              </div>
-              
+  <div class="wrapper">
+
+    <div class="login">
+
+      <div class="login-form">
+        <div class="logoicon">
+          <img src="../../assets/img/icon3.png" alt="Hand Holding Joystick" style="width: 70px;">
+
+        </div>
+        <h1 class="login-title">Login</h1>
+        <div class="form-wrapper">
+          <div class="input-wrapper">
+            <label class="label" for="email">Email Address</label>
+            <input class="input" type="text" formControlName="userName" autocomplete="off" />
+          </div><br>
+          <div class="input-wrapper">
+            <label class="label" for="password">Password</label>
+            <input class="input" type="password" formControlName="password" />
+          </div>
+          <div class="action-help">
+            <a class="help-link">Forgot your password?</a>
+          </div>
+          <div class="actions">
+            <input class="action" (click)="submit_login()" type="submit" value="Login" />
+            <div class="signup-action">
+              Don't have an account? <a class="signup-link" routerLink="/registration"> &nbsp; Sign Up Here!</a>
             </div>
           </div>
-          <div class="login-decoration">
-            
-          </div>
+
         </div>
       </div>
-  </form>
+      <div class="login-decoration">
+
+      </div>
+    </div>
+  </div>
+</form>
